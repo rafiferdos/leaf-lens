@@ -1,0 +1,11 @@
+❌ ImageVIcon NOT found
+   Suggestions: 
+✅ Camera01Icon exists
+✅ Upload02Icon exists
+✅ File01Icon exists
+✅ MultiplicationSignIcon exists
+✅ RefreshIcon exists
+✅ ArrowLeft01Icon exists
+✅ Search01Icon exists
+✅ AlertCircleIcon exists
+✅ CheckmarkCircle02Icon exists
