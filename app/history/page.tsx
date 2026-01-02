@@ -128,7 +128,7 @@ export default function HistoryPage() {
                 </div>
             </div>
 
-            <div className="h-[calc(100vh-12rem)] overflow-y-auto pr-2 custom-scrollbar pb-10">
+            <div className="pb-10">
                 <div className="flex flex-col gap-3">
                     {history.map((item) => (
                         <div
@@ -140,7 +140,7 @@ export default function HistoryPage() {
                             )}
                         >
                             <div className={cn(
-                                "relative shrink-0 overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800",
+                                "relative shrink-0 overflow-hidden rounded-lg",
                                 view === "default" && "h-20 w-20",
                                 view === "compact" && "h-12 w-12 rounded-md",
                                 view === "comfort" && "h-48 w-full sm:w-48 sm:h-32 rounded-xl"
