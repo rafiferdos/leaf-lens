@@ -11,7 +11,7 @@ export default function AboutPage() {
         <div className="flex flex-col items-center justify-center max-w-3xl mx-auto py-12 px-4 space-y-8">
 
             <div className="text-center space-y-2">
-                <span className="font-arabic text-3xl font-bold text-zinc-800 dark:text-zinc-200 block mb-6">
+                <span className="font-arabic text-3xl font-bold text-primary block mb-6">
                     بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
                 </span>
                 <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl bg-linear-to-r from-green-600 to-teal-500 bg-clip-text text-transparent">
@@ -22,7 +22,7 @@ export default function AboutPage() {
             <div className="grid gap-6 w-full">
                 <Card className="bg-zinc-50/50 dark:bg-zinc-900/50 border-zinc-200 dark:border-zinc-800">
                     <CardContent className="pt-6 relative">
-                        <HugeiconsIcon icon={QuoteUpIcon} className="absolute top-6 left-6 h-8 w-8 text-zinc-200 dark:text-zinc-700" />
+                        <HugeiconsIcon icon={QuoteUpIcon} className="absolute top-6 left-6 h-8 w-8 text-primary" />
                         <p className="text-center text-lg italic text-zinc-600 dark:text-zinc-400 relative z-10 px-8">
                             "Empowering agriculture through artificial intelligence, one leaf at a time."
                         </p>
@@ -81,7 +81,7 @@ export default function AboutPage() {
                 <Separator className="my-6" />
 
                 <div className="text-center text-sm text-zinc-500 dark:text-zinc-400">
-                    <p>Developed with ❤️ by the LeafLens Team</p>
+                    <p>Developed with ❤️ by the <span className="text-primary">LeafLens</span> Team</p>
                     <p className="mt-1 text-xs">© {new Date().getFullYear()} LeafLens Project</p>
                 </div>
             </div>

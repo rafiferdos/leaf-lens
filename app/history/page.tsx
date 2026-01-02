@@ -69,7 +69,7 @@ export default function HistoryPage() {
     }
 
     return (
-        <div className="space-y-6 animate-in fade-in duration-700 max-w-5xl mx-auto">
+        <div className="space-y-6 animate-in fade-in duration-700 h-full">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold font-heading">Scan History</h1>
