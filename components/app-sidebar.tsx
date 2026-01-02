@@ -51,7 +51,7 @@ export function AppSidebar() {
                         <span className="text-2xl font-heading bg-linear-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
                             LeafLens
                         </span>
-                        <span className="text-xs text-muted-foreground font-mono mt-1">
+                        <span className="text-xs text-primary font-mono mt-1">
                             v0.1 Beta
                         </span>
                     </div>
