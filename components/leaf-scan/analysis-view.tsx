@@ -13,6 +13,7 @@ import {
     CheckmarkCircle02Icon
 } from "@hugeicons/core-free-icons"
 import { cn } from "@/lib/utils"
+import { DiseaseInfo } from "./disease-info"
 
 export function AnalysisView() {
     const { image, previewUrl, result, isAnalyzing, error, analyzeImage, reset } = useScan()
@@ -118,6 +119,8 @@ export function AnalysisView() {
                                     ))}
                                 </div>
                             </div>
+
+                            <DiseaseInfo diseaseName={result.class} />
 
                             <div className="mt-8">
                                 <Button onClick={reset} variant="outline" className="w-full">
