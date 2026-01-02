@@ -64,7 +64,7 @@ export function ColorSwitcher() {
                         Customize the look and feel of the application.
                     </SheetDescription>
                 </SheetHeader>
-                <div className="py-6">
+                <div className="py-6 px-6">
                     <h4 className="text-sm font-medium mb-3 text-muted-foreground">Accent Color</h4>
                     <div className="grid grid-cols-2 gap-3">
                         {themeColors.map((theme) => {

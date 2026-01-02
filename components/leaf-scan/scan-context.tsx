@@ -66,6 +66,21 @@ export function ScanProvider({ children }: { children: React.ReactNode }) {
 
             const data = await response.json()
             setResult(data)
+
+            // Save to history
+            if (image) {
+                // We use the imported function but we need to import it first. 
+                // Since I can't add import easily with replace_file_content if it's far away, 
+                // I will assume I will add import in a separate step or try to add it here if I include top of file? 
+                // No, replace_file_content targets a block.
+                // I'll add the logic here and then add import.
+                // Actually, I can allow multiple edits? No, "Do NOT make multiple parallel calls to this tool".
+                // I'll do two edits sequentially.
+                // First the logic.
+                import("@/lib/history").then(({ addToHistory }) => {
+                    addToHistory(data, image)
+                }).catch(err => console.error("Failed to save history import", err))
+            }
         } catch (err) {
             setError(err instanceof Error ? err.message : "An unknown error occurred")
         } finally {

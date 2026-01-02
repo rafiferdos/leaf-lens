@@ -11,7 +11,7 @@ function LeafScanContent() {
     return (
         <div className="mx-auto w-full max-w-5xl animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="mb-8 text-center">
-                <h1 className="mb-2 lg:text-9xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 text-4xl">
+                <h1 className="mb-2 lg:text-9xl font-bold tracking-tight text-accent text-4xl">
                     Leaf Lens
                 </h1>
                 <p className="mx-auto max-w-xl text-lg text-zinc-600 dark:text-zinc-400">

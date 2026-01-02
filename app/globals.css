@@ -316,3 +316,10 @@
   --primary-foreground: oklch(0.985 0 0);
   --ring: oklch(0.38 0 0);
 }
+
+@layer base {
+  html[class*="theme-"] {
+    --sidebar-primary: var(--primary);
+    --sidebar-ring: var(--ring);
+  }
+}

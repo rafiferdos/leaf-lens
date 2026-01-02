@@ -16,6 +16,7 @@ import {
     SidebarRail,
     useSidebar,
     SidebarGroup,
+    sidebarMenuButtonVariants,
 } from "@/components/ui/sidebar"
 import {
     DropdownMenu,
@@ -61,36 +62,42 @@ export function AppSidebar() {
                 <SidebarGroup>
                     <SidebarMenu>
                         <SidebarMenuItem>
-                            <SidebarMenuButton
-                                render={<Link href="/" />}
-                                isActive={pathname === "/"}
-                                tooltip="Scanner"
+                            <Link
+                                href="/"
+                                data-active={pathname === "/"}
+                                className={sidebarMenuButtonVariants({
+                                    variant: "default"
+                                })}
                             >
                                 <HugeiconsIcon icon={Home01Icon} />
                                 <span>Plant Scanner</span>
-                            </SidebarMenuButton>
+                            </Link>
                         </SidebarMenuItem>
 
                         <SidebarMenuItem>
-                            <SidebarMenuButton
-                                render={<Link href="/history" />}
-                                isActive={pathname === "/history"}
-                                tooltip="History"
+                            <Link
+                                href="/history"
+                                data-active={pathname === "/history"}
+                                className={sidebarMenuButtonVariants({
+                                    variant: "default"
+                                })}
                             >
                                 <HugeiconsIcon icon={Time01Icon} />
                                 <span>Scan History</span>
-                            </SidebarMenuButton>
+                            </Link>
                         </SidebarMenuItem>
 
                         <SidebarMenuItem>
-                            <SidebarMenuButton
-                                render={<Link href="/about" />}
-                                isActive={pathname === "/about"}
-                                tooltip="About Us"
+                            <Link
+                                href="/about"
+                                data-active={pathname === "/about"}
+                                className={sidebarMenuButtonVariants({
+                                    variant: "default"
+                                })}
                             >
                                 <HugeiconsIcon icon={InformationCircleIcon} />
                                 <span>About Us</span>
-                            </SidebarMenuButton>
+                            </Link>
                         </SidebarMenuItem>
                     </SidebarMenu>
                 </SidebarGroup>
