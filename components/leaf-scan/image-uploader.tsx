@@ -59,13 +59,13 @@ export function ImageUploader() {
                 onDragLeave={handleDragLeave}
             >
                 <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100 shadow-sm dark:bg-zinc-900">
-                    <HugeiconsIcon icon={ImageIcon} className="h-8 w-8 text-zinc-500" />
+                    <HugeiconsIcon icon={ImageIcon} className="h-8 w-8" />
                 </div>
 
-                <h3 className="mb-2 text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+                <h3 className="mb-2 text-lg text-primary font-semibold tracking-tight">
                     Upload Plant Photo
                 </h3>
-                <p className="mb-8 max-w-sm text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="mb-8 max-w-sm text-sm text-zinc-500">
                     Drag and drop your image here, or choose an option below to get started.
                 </p>
 
@@ -74,7 +74,7 @@ export function ImageUploader() {
                         <HugeiconsIcon icon={Upload02Icon} />
                         Choose from Computer
                     </Button>
-                    <Button onClick={() => setIsCameraOpen(true)} variant="outline" className="w-full gap-2" size="lg">
+                    <Button onClick={() => setIsCameraOpen(true)} variant="outline" className="w-full gap-2 text-primary" size="lg">
                         <HugeiconsIcon icon={Camera01Icon} />
                         Take Photo
                     </Button>

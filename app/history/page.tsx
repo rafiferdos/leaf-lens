@@ -7,6 +7,17 @@ import { Time01Icon, Delete02Icon, Calendar03Icon, Search01Icon } from "@hugeico
 import { getHistory, clearHistory, HistoryItem } from "@/lib/history"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default function HistoryPage() {
     const [history, setHistory] = React.useState<HistoryItem[]>([])
@@ -60,10 +71,33 @@ export default function HistoryPage() {
                     <h1 className="text-3xl font-bold font-heading">Scan History</h1>
                     <p className="text-muted-foreground mt-1">Found {history.length} past analyses.</p>
                 </div>
-                <Button variant="outline" size="sm" onClick={handleClearHistory} className="text-destructive hover:text-destructive gap-2">
-                    <HugeiconsIcon icon={Delete02Icon} className="size-4" />
-                    Clear History
-                </Button>
+                <AlertDialog>
+                    <AlertDialogTrigger
+                        render={
+                            <Button variant="outline" size="sm" className="text-destructive hover:text-destructive gap-2">
+                                <HugeiconsIcon icon={Delete02Icon} className="size-4" />
+                                Clear History
+                            </Button>
+                        }
+                    />
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                This action cannot be undone. This will permanently delete your scan history from this device.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => {
+                                clearHistory()
+                                loadHistory()
+                            }} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                                Delete History
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
             </div>
 
             <div className="h-[calc(100vh-12rem)] overflow-y-auto pr-4 custom-scrollbar">
@@ -76,7 +110,7 @@ export default function HistoryPage() {
                                     alt={item.result.class}
                                     className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                                     <Badge variant="secondary" className="bg-white/90 text-black hover:bg-white">
                                         {(item.result.confidence * 100).toFixed(1)}% Confidence
                                     </Badge>
@@ -107,6 +141,6 @@ export default function HistoryPage() {
                     ))}
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

@@ -51,9 +51,9 @@ export function ColorSwitcher() {
         <Sheet>
             <SheetTrigger
                 render={
-                    <button className="flex h-8 w-full items-center gap-2 rounded-md px-2 text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:p-0">
-                        <HugeiconsIcon icon={PaintBoardIcon} className="size-4" />
-                        <span className="text-sm font-medium group-data-[collapsible=icon]:hidden">Appearance</span>
+                    <button className="flex h-9 w-full items-center gap-2 rounded-lg px-2 text-sidebar-foreground border border-sidebar-border bg-sidebar-background hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:p-0 shadow-sm cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring">
+                        <HugeiconsIcon icon={PaintBoardIcon} className="size-4 shrink-0" />
+                        <span className="text-sm font-medium group-data-[collapsible=icon]:hidden truncate">Appearance</span>
                     </button>
                 }
             />
