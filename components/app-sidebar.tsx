@@ -48,10 +48,10 @@ export function AppSidebar() {
                                 <img src="/logo.png" alt="Logo" className="h-full w-full object-cover" />
                             </div>
                             <div className="flex flex-col gap-0.5 truncate group-data-[collapsible=icon]:hidden">
-                                <span className="font-bold text-lg bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
+                                <span className="font-bold text-lg bg-linear-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
                                     LeafLens
                                 </span>
-                                <span className="text-[10px] bg-gradient-to-r from-red-500 to-red-500 bg-clip-text text-transparent">
+                                <span className="text-[10px] bg-linear-to-r from-red-500 to-red-500 bg-clip-text text-transparent">
                                     Beta v0.1
                                 </span>
                             </div>

@@ -44,7 +44,7 @@ export default function RootLayout({
               <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
                 <SidebarTrigger className="-ml-1" />
                 <div className="flex items-center gap-2 font-semibold">
-                  <span className="text-lg bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
+                  <span className="text-lg bg-linear-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
                     LeafLens
                   </span>
                 </div>

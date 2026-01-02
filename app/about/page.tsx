@@ -14,7 +14,7 @@ export default function AboutPage() {
                 <span className="font-arabic text-3xl font-bold text-zinc-800 dark:text-zinc-200 block mb-6">
                     بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
                 </span>
-                <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl bg-gradient-to-r from-green-600 to-teal-500 bg-clip-text text-transparent">
+                <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl bg-linear-to-r from-green-600 to-teal-500 bg-clip-text text-transparent">
                     About LeafLens
                 </h1>
             </div>
@@ -31,10 +31,10 @@ export default function AboutPage() {
 
                 <div className="grid md:grid-cols-2 gap-6 mt-4">
                     {/* Creator - Rafi */}
-                    <Card className="relative overflow-hidden border-2 border-primary/20 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20">
+                    <Card className="relative overflow-hidden border-2 border-primary/20 bg-linear-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20">
                         <CardContent className="flex flex-col items-center p-8 text-center space-y-4">
                             <div className="relative">
-                                <div className="h-24 w-24 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 p-1">
+                                <div className="h-24 w-24 rounded-full bg-linear-to-r from-green-400 to-emerald-500 p-1">
                                     <div className="h-full w-full rounded-full bg-white dark:bg-zinc-900 flex items-center justify-center">
                                         <HugeiconsIcon icon={CodeIcon} className="h-10 w-10 text-green-600 dark:text-green-400" />
                                     </div>
