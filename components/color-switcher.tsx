@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useTheme } from "next-themes"
 import { useThemeColor, ThemeColor } from "@/components/theme-color-provider"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -10,7 +11,7 @@ import {
     TooltipTrigger,
     TooltipProvider
 } from "@/components/ui/tooltip"
-import { Tick02Icon, PaintBoardIcon } from "@hugeicons/core-free-icons"
+import { Tick02Icon, PaintBoardIcon, Sun01Icon, Moon01Icon, ComputerIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
     Sheet,
@@ -46,56 +47,126 @@ const themeColors: { name: ThemeColor; label: string; activeColor: string }[] = 
 
 export function ColorSwitcher() {
     const { themeColor, setThemeColor } = useThemeColor()
+    const { theme, setTheme } = useTheme()
+
+    const activeThemeLabel = themeColors.find(t => t.name === themeColor)?.label || "Zinc"
 
     return (
         <Sheet>
             <SheetTrigger
                 render={
-                    <button className="flex h-9 w-full items-center gap-2 rounded-lg px-2 text-sidebar-foreground border border-sidebar-border bg-sidebar-background hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:p-0 shadow-sm cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring">
-                        <HugeiconsIcon icon={PaintBoardIcon} className="size-4 shrink-0" />
-                        <span className="text-sm font-medium group-data-[collapsible=icon]:hidden truncate">Appearance</span>
+                    <button className="flex w-full items-center gap-3 rounded-xl border border-dashed border-sidebar-border bg-sidebar-background/50 p-2 hover:bg-sidebar-accent hover:border-sidebar-accent hover:text-sidebar-accent-foreground transition-all group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:border-none group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:bg-transparent outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                        <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:rounded-md">
+                            <HugeiconsIcon icon={PaintBoardIcon} className="size-4" />
+                        </div>
+                        <div className="flex flex-1 flex-col items-start gap-0.5 text-left group-data-[collapsible=icon]:hidden">
+                            <span className="text-sm font-medium leading-none">Appearance</span>
+                            <span className="text-xs text-muted-foreground">Theme: {activeThemeLabel}</span>
+                        </div>
+                        <div className="group-data-[collapsible=icon]:hidden">
+                            <div className="size-2.5 rounded-full border border-background shadow-xs bg-primary" />
+                        </div>
                     </button>
                 }
             />
-            <SheetContent>
-                <SheetHeader>
-                    <SheetTitle className="font-heading">Appearance</SheetTitle>
+            <SheetContent className="w-[340px] sm:w-[380px] p-0 flex flex-col h-full bg-background border-l border-border shadow-2xl">
+                <SheetHeader className="px-6 py-6 border-b border-border/50 bg-muted/20">
+                    <SheetTitle className="font-heading text-lg">Appearance</SheetTitle>
                     <SheetDescription>
-                        Customize the look and feel of the application.
+                        Customize the visual personality of LeafLens.
                     </SheetDescription>
                 </SheetHeader>
-                <div className="py-6 px-6">
-                    <h4 className="text-sm font-medium mb-3 text-muted-foreground">Accent Color</h4>
-                    <div className="grid grid-cols-2 gap-3">
-                        {themeColors.map((theme) => {
-                            const isActive = themeColor === theme.name;
-                            return (
+
+                <div className="flex-1 overflow-y-auto px-6 py-8">
+                    <div className="space-y-6">
+                        {/* Theme Mode Section */}
+                        <div>
+                            <h4 className="text-sm font-semibold text-foreground mb-4">Theme Mode</h4>
+                            <div className="grid grid-cols-3 gap-3">
                                 <button
-                                    key={theme.name}
-                                    onClick={() => setThemeColor(theme.name)}
+                                    onClick={() => setTheme("light")}
                                     className={cn(
-                                        "flex items-center gap-3 rounded-lg border p-2 text-left text-sm transition-all hover:bg-accent",
-                                        isActive
-                                            ? "border-primary bg-accent ring-1 ring-primary" // Active state
-                                            : "border-transparent"
+                                        "flex flex-col items-center gap-2 rounded-lg border p-3 text-xs font-medium transition-all hover:bg-accent hover:border-accent-foreground/20 outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                                        theme === "light"
+                                            ? "border-primary/50 bg-primary/5 ring-1 ring-primary/30 text-primary"
+                                            : "border-border bg-transparent text-muted-foreground"
                                     )}
-                                    style={isActive ? { borderColor: `var(--primary)` } : {}}
                                 >
-                                    <div
-                                        className={cn(
-                                            "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-black/10 dark:border-white/10",
-                                            theme.activeColor
-                                        )}
-                                    >
-                                        {isActive && (
-                                            <HugeiconsIcon icon={Tick02Icon} className="size-3 text-white" />
-                                        )}
-                                    </div>
-                                    <span className="font-medium">{theme.label}</span>
+                                    <HugeiconsIcon icon={Sun01Icon} className="size-6" />
+                                    <span>Light</span>
                                 </button>
-                            )
-                        })}
+                                <button
+                                    onClick={() => setTheme("dark")}
+                                    className={cn(
+                                        "flex flex-col items-center gap-2 rounded-lg border p-3 text-xs font-medium transition-all hover:bg-accent hover:border-accent-foreground/20 outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                                        theme === "dark"
+                                            ? "border-primary/50 bg-primary/5 ring-1 ring-primary/30 text-primary"
+                                            : "border-border bg-transparent text-muted-foreground"
+                                    )}
+                                >
+                                    <HugeiconsIcon icon={Moon01Icon} className="size-6" />
+                                    <span>Dark</span>
+                                </button>
+                                <button
+                                    onClick={() => setTheme("system")}
+                                    className={cn(
+                                        "flex flex-col items-center gap-2 rounded-lg border p-3 text-xs font-medium transition-all hover:bg-accent hover:border-accent-foreground/20 outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                                        theme === "system"
+                                            ? "border-primary/50 bg-primary/5 ring-1 ring-primary/30 text-primary"
+                                            : "border-border bg-transparent text-muted-foreground"
+                                    )}
+                                >
+                                    <HugeiconsIcon icon={ComputerIcon} className="size-6" />
+                                    <span>System</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="flex items-center justify-between mb-4">
+                                <h4 className="text-sm font-semibold text-foreground">Accent Color</h4>
+                                <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full border border-border/50">
+                                    {themeColors.length} colors
+                                </span>
+                            </div>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                                {themeColors.map((theme) => {
+                                    const isActive = themeColor === theme.name;
+                                    return (
+                                        <button
+                                            key={theme.name}
+                                            onClick={() => setThemeColor(theme.name)}
+                                            className={cn(
+                                                "relative flex items-center justify-start gap-2 rounded-md border p-2 text-xs font-medium transition-all hover:bg-accent hover:border-accent-foreground/20 outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                                                isActive
+                                                    ? "border-primary/50 bg-primary/5 ring-1 ring-primary/30"
+                                                    : "border-border bg-transparent"
+                                            )}
+                                        >
+                                            <div
+                                                className={cn(
+                                                    "size-4 rounded-full border border-white/20 shadow-sm shrink-0",
+                                                    theme.activeColor
+                                                )}
+                                            />
+                                            <span className="truncate">{theme.label}</span>
+                                            {isActive && (
+                                                <div className="absolute right-2 top-1/2 -translate-y-1/2 text-primary">
+                                                    <HugeiconsIcon icon={Tick02Icon} className="size-3" />
+                                                </div>
+                                            )}
+                                        </button>
+                                    )
+                                })}
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <div className="p-4 border-t border-border/50 bg-muted/20 text-center">
+                    <p className="text-xs text-muted-foreground">
+                        Changes are saved automatically.
+                    </p>
                 </div>
             </SheetContent>
         </Sheet>

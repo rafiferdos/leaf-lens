@@ -105,32 +105,7 @@ export function AppSidebar() {
 
             <SidebarFooter>
                 <SidebarMenu>
-                    <SidebarMenuItem className="flex items-center gap-2">
-                        <DropdownMenu>
-                            <DropdownMenuTrigger
-                                render={
-                                    <SidebarMenuButton tooltip="Select Theme" className="flex-1">
-                                        <HugeiconsIcon icon={Sun01Icon} className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                                        <HugeiconsIcon icon={Moon01Icon} className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                                        <span>Toggle Theme</span>
-                                    </SidebarMenuButton>
-                                }
-                            />
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuItem onClick={() => setTheme("light")}>
-                                    <HugeiconsIcon icon={Sun01Icon} className="mr-2 h-4 w-4" />
-                                    Light
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => setTheme("dark")}>
-                                    <HugeiconsIcon icon={Moon01Icon} className="mr-2 h-4 w-4" />
-                                    Dark
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => setTheme("system")}>
-                                    <HugeiconsIcon icon={ComputerIcon} className="mr-2 h-4 w-4" />
-                                    System
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                    <SidebarMenuItem>
                         <ColorSwitcher />
                     </SidebarMenuItem>
                 </SidebarMenu>
