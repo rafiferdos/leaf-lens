@@ -42,23 +42,19 @@ export function AppSidebar() {
     return (
         <Sidebar variant="floating" collapsible="icon">
             <SidebarHeader>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <div className="flex items-center gap-2 p-2">
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-zinc-900 dark:bg-zinc-50 border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden">
-                                <img src="/logo.png" alt="Logo" className="h-full w-full object-cover" />
-                            </div>
-                            <div className="flex flex-col gap-0.5 truncate group-data-[collapsible=icon]:hidden">
-                                <span className="font-bold text-lg bg-linear-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
-                                    LeafLens
-                                </span>
-                                <span className="text-[10px] bg-linear-to-r from-red-500 to-red-500 bg-clip-text text-transparent">
-                                    Beta v0.1
-                                </span>
-                            </div>
-                        </div>
-                    </SidebarMenuItem>
-                </SidebarMenu>
+                <div className="flex flex-col items-center justify-center py-6 gap-3 group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:py-2">
+                    <div className="relative h-24 w-24 group-data-[collapsible=icon]:h-10 group-data-[collapsible=icon]:w-10 transition-all duration-300">
+                        <img src="/logo.png" alt="LeafLens" className="h-full w-full object-contain" />
+                    </div>
+                    <div className="flex flex-col items-center group-data-[collapsible=icon]:hidden animate-in fade-in zoom-in duration-300">
+                        <span className="text-2xl font-heading bg-linear-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
+                            LeafLens
+                        </span>
+                        <span className="text-xs text-muted-foreground font-mono mt-1">
+                            v0.1 Beta
+                        </span>
+                    </div>
+                </div>
             </SidebarHeader>
 
             <SidebarContent>

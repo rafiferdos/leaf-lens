@@ -51,46 +51,51 @@ export function ColorSwitcher() {
         <Sheet>
             <SheetTrigger
                 render={
-                    <Button variant="ghost" size="icon" className="h-7 w-7">
-                        <HugeiconsIcon icon={PaintBoardIcon} className="h-4 w-4" />
-                        <span className="sr-only">Customize Color</span>
-                    </Button>
+                    <button className="flex h-8 w-full items-center gap-2 rounded-md px-2 text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:p-0">
+                        <HugeiconsIcon icon={PaintBoardIcon} className="size-4" />
+                        <span className="text-sm font-medium group-data-[collapsible=icon]:hidden">Appearance</span>
+                    </button>
                 }
             />
             <SheetContent>
                 <SheetHeader>
-                    <SheetTitle>Customize Look</SheetTitle>
+                    <SheetTitle className="font-heading">Appearance</SheetTitle>
                     <SheetDescription>
-                        Choose a primary color for the application.
+                        Customize the look and feel of the application.
                     </SheetDescription>
                 </SheetHeader>
-                <div className="grid grid-cols-3 gap-2 py-6">
-                    {themeColors.map((theme) => (
-                        <TooltipProvider key={theme.name}>
-                            <Tooltip>
-                                <TooltipTrigger
-                                    render={
-                                        <button
-                                            onClick={() => setThemeColor(theme.name)}
-                                            className={cn(
-                                                "flex items-center justify-center rounded-md border-2 border-muted bg-popover p-1 hover:bg-accent hover:text-accent-foreground transition-all",
-                                                themeColor === theme.name && "border-primary"
-                                            )}
-                                        >
-                                            <div className={cn("h-6 w-6 rounded-full", theme.activeColor)} />
-                                            <span className="sr-only">{theme.label}</span>
-                                            {themeColor === theme.name && (
-                                                <HugeiconsIcon icon={Tick02Icon} className="ml-2 h-4 w-4 text-primary" />
-                                            )}
-                                        </button>
-                                    }
-                                />
-                                <TooltipContent>
-                                    {theme.label}
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
-                    ))}
+                <div className="py-6">
+                    <h4 className="text-sm font-medium mb-3 text-muted-foreground">Accent Color</h4>
+                    <div className="grid grid-cols-2 gap-3">
+                        {themeColors.map((theme) => {
+                            const isActive = themeColor === theme.name;
+                            return (
+                                <button
+                                    key={theme.name}
+                                    onClick={() => setThemeColor(theme.name)}
+                                    className={cn(
+                                        "flex items-center gap-3 rounded-lg border p-2 text-left text-sm transition-all hover:bg-accent",
+                                        isActive
+                                            ? "border-primary bg-accent ring-1 ring-primary" // Active state
+                                            : "border-transparent"
+                                    )}
+                                    style={isActive ? { borderColor: `var(--primary)` } : {}}
+                                >
+                                    <div
+                                        className={cn(
+                                            "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-black/10 dark:border-white/10",
+                                            theme.activeColor
+                                        )}
+                                    >
+                                        {isActive && (
+                                            <HugeiconsIcon icon={Tick02Icon} className="size-3 text-white" />
+                                        )}
+                                    </div>
+                                    <span className="font-medium">{theme.label}</span>
+                                </button>
+                            )
+                        })}
+                    </div>
                 </div>
             </SheetContent>
         </Sheet>
