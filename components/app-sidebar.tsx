@@ -65,40 +65,34 @@ export function AppSidebar() {
                     <SidebarMenu>
                         <SidebarMenuItem>
                             <SidebarMenuButton
-                                asChild
+                                render={<Link href="/" />}
                                 isActive={pathname === "/"}
                                 tooltip="Scanner"
                             >
-                                <Link href="/">
-                                    <HugeiconsIcon icon={Home01Icon} />
-                                    <span>Plant Scanner</span>
-                                </Link>
+                                <HugeiconsIcon icon={Home01Icon} />
+                                <span>Plant Scanner</span>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
 
                         <SidebarMenuItem>
                             <SidebarMenuButton
-                                asChild
+                                render={<Link href="/history" />}
                                 isActive={pathname === "/history"}
                                 tooltip="History"
                             >
-                                <Link href="/history">
-                                    <HugeiconsIcon icon={Time01Icon} />
-                                    <span>Scan History</span>
-                                </Link>
+                                <HugeiconsIcon icon={Time01Icon} />
+                                <span>Scan History</span>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
 
                         <SidebarMenuItem>
                             <SidebarMenuButton
-                                asChild
+                                render={<Link href="/about" />}
                                 isActive={pathname === "/about"}
                                 tooltip="About Us"
                             >
-                                <Link href="/about">
-                                    <HugeiconsIcon icon={InformationCircleIcon} />
-                                    <span>About Us</span>
-                                </Link>
+                                <HugeiconsIcon icon={InformationCircleIcon} />
+                                <span>About Us</span>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                     </SidebarMenu>
@@ -109,13 +103,15 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <SidebarMenuButton tooltip="Select Theme">
-                                    <HugeiconsIcon icon={Sun01Icon} className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                                    <HugeiconsIcon icon={Moon01Icon} className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                                    <span>Toggle Theme</span>
-                                </SidebarMenuButton>
-                            </DropdownMenuTrigger>
+                            <DropdownMenuTrigger
+                                render={
+                                    <SidebarMenuButton tooltip="Select Theme">
+                                        <HugeiconsIcon icon={Sun01Icon} className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                                        <HugeiconsIcon icon={Moon01Icon} className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                                        <span>Toggle Theme</span>
+                                    </SidebarMenuButton>
+                                }
+                            />
                             <DropdownMenuContent align="end">
                                 <DropdownMenuItem onClick={() => setTheme("light")}>
                                     <HugeiconsIcon icon={Sun01Icon} className="mr-2 h-4 w-4" />
