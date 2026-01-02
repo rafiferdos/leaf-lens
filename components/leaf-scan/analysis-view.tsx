@@ -12,6 +12,7 @@ import {
     AlertCircleIcon,
     CheckmarkCircle02Icon
 } from "@hugeicons/core-free-icons"
+import { cn } from "@/lib/utils"
 
 export function AnalysisView() {
     const { image, previewUrl, result, isAnalyzing, error, analyzeImage, reset } = useScan()
@@ -69,32 +70,56 @@ export function AnalysisView() {
                 ) : (
                     <Card className="overflow-hidden border-2 border-primary/10 bg-zinc-50/50 dark:bg-zinc-900/50">
                         <CardContent className="p-6">
-                            <div className="mb-4 flex items-center gap-2 text-primary">
-                                <HugeiconsIcon icon={CheckmarkCircle02Icon} className="h-6 w-6" />
-                                <span className="font-semibold">Analysis Complete</span>
+                            <div className="mb-4 flex items-center gap-2">
+                                {result.class.toLowerCase() === 'healthy' ? (
+                                    <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
+                                        <HugeiconsIcon icon={CheckmarkCircle02Icon} className="h-6 w-6" />
+                                        <span className="font-semibold">Plant is Healthy</span>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
+                                        <HugeiconsIcon icon={AlertCircleIcon} className="h-6 w-6" />
+                                        <span className="font-semibold">Disease Detected</span>
+                                    </div>
+                                )}
                             </div>
 
-                            <div className="space-y-1">
-                                <p className="text-sm font-medium text-zinc-500">Detected Condition</p>
-                                <p className="text-2xl font-bold capitalize text-zinc-900 dark:text-zinc-50">
-                                    {result.class}
+                            <div className="space-y-1 mb-6">
+                                <p className="text-sm font-medium text-zinc-500">Primary Diagnosis</p>
+                                <p className="text-3xl font-bold capitalize text-zinc-900 dark:text-zinc-50">
+                                    {result.class.replace(/([A-Z])/g, ' $1').trim()}
                                 </p>
                             </div>
 
-                            <div className="mt-4 space-y-1">
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-zinc-500">Confidence</span>
-                                    <span className="font-medium">{(result.confidence * 100).toFixed(1)}%</span>
-                                </div>
-                                <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
-                                    <div
-                                        className="h-full bg-primary transition-all duration-500 ease-out"
-                                        style={{ width: `${result.confidence * 100}%` }}
-                                    />
+                            <div className="space-y-4">
+                                <p className="text-sm font-medium text-zinc-500">Full Analysis Breakdown</p>
+                                <div className="space-y-3">
+                                    {result.all_predictions.map((prediction, index) => (
+                                        <div key={prediction.class} className="space-y-1">
+                                            <div className="flex justify-between text-xs">
+                                                <span className={cn(
+                                                    "font-medium",
+                                                    index === 0 ? "text-zinc-900 dark:text-zinc-50" : "text-zinc-500"
+                                                )}>
+                                                    {prediction.class.replace(/([A-Z])/g, ' $1').trim()}
+                                                </span>
+                                                <span className="text-zinc-500">{(prediction.confidence * 100).toFixed(1)}%</span>
+                                            </div>
+                                            <div className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800">
+                                                <div
+                                                    className={cn(
+                                                        "h-full transition-all duration-500 ease-out",
+                                                        prediction.class.toLowerCase() === 'healthy' ? "bg-green-500" : "bg-primary"
+                                                    )}
+                                                    style={{ width: `${prediction.confidence * 100}%`, opacity: Math.max(0.2, prediction.confidence) }}
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
 
-                            <div className="mt-6">
+                            <div className="mt-8">
                                 <Button onClick={reset} variant="outline" className="w-full">
                                     <HugeiconsIcon icon={ArrowLeft01Icon} className="mr-2 h-4 w-4" />
                                     Analyze Another
@@ -107,3 +132,4 @@ export function AnalysisView() {
         </div>
     )
 }
+
