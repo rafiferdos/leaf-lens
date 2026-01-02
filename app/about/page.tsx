@@ -35,9 +35,7 @@ export default function AboutPage() {
                         <CardContent className="flex flex-col items-center p-8 text-center space-y-4">
                             <div className="relative">
                                 <div className="h-24 w-24 rounded-full bg-linear-to-r from-green-400 to-emerald-500 p-1">
-                                    <div className="h-full w-full rounded-full bg-white dark:bg-zinc-900 flex items-center justify-center">
-                                        <HugeiconsIcon icon={CodeIcon} className="h-10 w-10 text-green-600 dark:text-green-400" />
-                                    </div>
+                                    <img src="/rafi.jpg" alt="Rafi Ferdos" className="h-full w-full rounded-full object-cover" />
                                 </div>
                                 <div className="absolute -bottom-2 -right-2 bg-yellow-400 text-yellow-900 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
                                     CREATOR
@@ -60,8 +58,8 @@ export default function AboutPage() {
                     {/* Team Member - Siam */}
                     <Card className="bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800">
                         <CardContent className="flex flex-col items-center p-8 text-center space-y-4">
-                            <div className="h-24 w-24 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
-                                <HugeiconsIcon icon={UserCircleIcon} className="h-10 w-10 text-zinc-400" />
+                            <div className="h-24 w-24 rounded-full bg-zinc-100 dark:bg-zinc-800 p-1">
+                                <img src="/mim.jpg" alt="Siam Akter Mim" className="h-full w-full rounded-full object-cover" />
                             </div>
                             <div>
                                 <CardTitle className="text-xl font-bold text-zinc-900 dark:text-zinc-100">

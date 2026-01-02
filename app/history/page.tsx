@@ -169,7 +169,24 @@ export default function HistoryPage() {
                                     </Badge>
                                 </div>
 
-                                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-muted-foreground">
+                                {item.result.all_predictions && item.result.all_predictions.length > 0 && view !== "compact" && (
+                                    <div className="mt-2 space-y-2">
+                                        {item.result.all_predictions.slice(0, 3).map((pred) => (
+                                            <div key={pred.class} className="flex items-center gap-2 text-xs">
+                                                <span className="w-24 truncate font-medium text-muted-foreground">{pred.class}</span>
+                                                <div className="flex-1 h-1.5 bg-secondary rounded-full overflow-hidden">
+                                                    <div
+                                                        className="h-full bg-primary/70 rounded-full"
+                                                        style={{ width: `${pred.confidence * 100}%` }}
+                                                    />
+                                                </div>
+                                                <span className="w-8 text-right text-muted-foreground">{(pred.confidence * 100).toFixed(0)}%</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-muted-foreground mt-1">
                                     <div className="flex items-center gap-1.5 text-xs">
                                         <HugeiconsIcon icon={Calendar03Icon} className="size-3.5" />
                                         <span>
