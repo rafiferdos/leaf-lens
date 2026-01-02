@@ -197,7 +197,7 @@ export function DiseaseInfo({ diseaseName }: DiseaseInfoProps) {
                     </div>
                 )}
 
-                <div className="pt-2">
+                <div className="pt-2 mx-auto w-fit">
                     <Button
                         variant="outline"
                         className="w-full justify-between group"

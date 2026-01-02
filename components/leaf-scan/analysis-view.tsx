@@ -31,13 +31,15 @@ export function AnalysisView() {
                     />
                 </div>
 
-                <div className="flex flex-col justify-center space-y-6">
-                    <div>
-                        <h2 className="text-2xl font-bold tracking-tight">Image Selected</h2>
-                        <p className="text-zinc-500">
-                            {image.name} ({(image.size / 1024).toFixed(1)} KB)
-                        </p>
-                    </div>
+                <div className="flex flex-col space-y-6">
+                    {!result && (
+                        <div>
+                            <h2 className="text-2xl font-bold tracking-tight">Image Selected</h2>
+                            <p className="text-zinc-500">
+                                {image.name} ({(image.size / 1024).toFixed(1)} KB)
+                            </p>
+                        </div>
+                    )}
 
                     {error && (
                         <div className="rounded-md p-4 text-sm text-red-600 bg-red-100/10 dark:text-red-400">
