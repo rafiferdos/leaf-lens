@@ -47,7 +47,7 @@ export function AppSidebar() {
                         <img src="/logo.png" alt="LeafLens" className="h-full w-full object-contain" />
                     </div>
                     <div className="flex flex-col items-center group-data-[collapsible=icon]:hidden animate-in fade-in zoom-in duration-300">
-                        <span className="text-2xl font-heading bg-linear-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
+                        <span className="text-2xl font-heading bg-linear-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
                             LeafLens
                         </span>
                         <span className="text-xs text-muted-foreground font-mono mt-1">
