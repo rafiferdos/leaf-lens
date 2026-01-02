@@ -19,7 +19,7 @@ function LeafScanContent() {
                 </p>
             </div>
 
-            <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-xl dark:border-zinc-800 dark:bg-zinc-950 sm:p-10">
+            <div className="rounded-2xl border border-zinc-200  p-6 shadow-xl dark:border-zinc-800 bg-primary/10 sm:p-10">
                 {!image ? <ImageUploader /> : <AnalysisView />}
             </div>
         </div>

@@ -62,7 +62,7 @@ export function ImageUploader() {
                     <HugeiconsIcon icon={ImageIcon} className="h-8 w-8" />
                 </div>
 
-                <h3 className="mb-2 text-lg text-primary font-semibold tracking-tight">
+                <h3 className="mb-2 text-3xl text-primary font-semibold tracking-tight">
                     Upload Plant Photo
                 </h3>
                 <p className="mb-8 max-w-sm text-sm text-zinc-500">
@@ -72,7 +72,7 @@ export function ImageUploader() {
                 <div className="flex flex-col gap-3 w-full max-w-xs">
                     <Button onClick={() => fileInputRef.current?.click()} className="w-full gap-2" size="lg">
                         <HugeiconsIcon icon={Upload02Icon} />
-                        Choose from Computer
+                        Choose from Device
                     </Button>
                     <Button onClick={() => setIsCameraOpen(true)} variant="outline" className="w-full gap-2 text-primary" size="lg">
                         <HugeiconsIcon icon={Camera01Icon} />

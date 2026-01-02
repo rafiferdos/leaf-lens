@@ -23,7 +23,7 @@ export function AnalysisView() {
     return (
         <div className="space-y-8 transition-all duration-500 ease-in-out">
             <div className="grid gap-8 md:grid-cols-2 items-start">
-                <div className="relative overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 aspect-square">
+                <div className="relative overflow-hidden rounded-xl border border-zinc-200 bg-primary/10 shadow-sm dark:border-zinc-800 aspect-square">
                     <img
                         src={previewUrl}
                         alt="Preview"
@@ -40,7 +40,7 @@ export function AnalysisView() {
                     </div>
 
                     {error && (
-                        <div className="rounded-md bg-red-50 p-4 text-sm text-red-600 dark:bg-red-900/20 dark:text-red-400">
+                        <div className="rounded-md p-4 text-sm text-red-600 bg-red-100/10 dark:text-red-400">
                             <div className="flex items-center gap-2">
                                 <HugeiconsIcon icon={AlertCircleIcon} />
                                 <span>{error}</span>
