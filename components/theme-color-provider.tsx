@@ -40,7 +40,12 @@ export function ThemeColorProvider({
 }: {
     children: React.ReactNode
 }) {
+    const [mounted, setMounted] = React.useState(false)
     const [themeColor, setThemeColor] = React.useState<ThemeColor>("zinc")
+
+    React.useEffect(() => {
+        setMounted(true)
+    }, [])
 
     React.useEffect(() => {
         const savedColor = localStorage.getItem("theme-color") as ThemeColor
@@ -50,19 +55,26 @@ export function ThemeColorProvider({
     }, [])
 
     React.useEffect(() => {
+        if (!mounted) return
+
         localStorage.setItem("theme-color", themeColor)
-        const body = document.body
+        const root = document.documentElement
+
         // Remove all existing theme classes
         const themes: ThemeColor[] = [
             "zinc", "slate", "stone", "gray", "neutral", "red", "rose", "orange", "green", "blue", "yellow", "violet", "amber", "cyan", "emerald", "fuchsia", "indigo", "lime", "pink", "purple", "sky", "teal"
         ]
-        themes.forEach((t) => body.classList.remove(`theme-${t}`))
+        themes.forEach((t) => root.classList.remove(`theme-${t}`))
 
         // Add new theme class (except for zinc which is default)
         if (themeColor !== "zinc") {
-            body.classList.add(`theme-${themeColor}`)
+            root.classList.add(`theme-${themeColor}`)
         }
-    }, [themeColor])
+    }, [themeColor, mounted])
+
+    if (!mounted) {
+        return <>{children}</>
+    }
 
     return (
         <ThemeColorContext.Provider value={{ themeColor, setThemeColor }}>
