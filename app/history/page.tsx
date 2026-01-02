@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Time01Icon, Delete02Icon, Calendar03Icon, ListViewIcon, GridViewIcon, Rows01Icon } from "@hugeicons/core-free-icons"
+import { Time01Icon, Delete02Icon, Calendar03Icon } from "@hugeicons/core-free-icons"
 import { getHistory, clearHistory, HistoryItem } from "@/lib/history"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -78,24 +78,21 @@ export default function HistoryPage() {
                 <div className="flex items-center gap-2">
                     <Select value={view} onValueChange={(v) => setView(v as ViewOption)}>
                         <SelectTrigger className="w-[140px]">
-                            <SelectValue placeholder="View" />
+                            <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="default">
                                 <span className="flex items-center gap-2">
-                                    <HugeiconsIcon icon={Rows01Icon} className="size-4" />
                                     Default
                                 </span>
                             </SelectItem>
                             <SelectItem value="compact">
                                 <span className="flex items-center gap-2">
-                                    <HugeiconsIcon icon={ListViewIcon} className="size-4" />
                                     Compact
                                 </span>
                             </SelectItem>
                             <SelectItem value="comfort">
                                 <span className="flex items-center gap-2">
-                                    <HugeiconsIcon icon={GridViewIcon} className="size-4" />
                                     Comfort
                                 </span>
                             </SelectItem>
