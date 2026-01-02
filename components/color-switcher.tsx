@@ -10,7 +10,7 @@ import {
     TooltipTrigger,
     TooltipProvider
 } from "@/components/ui/tooltip"
-import { CheckIcon, PaintBoardIcon } from "@hugeicons/core-free-icons"
+import { Tick02Icon, PaintBoardIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
     Sheet,
@@ -49,12 +49,14 @@ export function ColorSwitcher() {
 
     return (
         <Sheet>
-            <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-7 w-7">
-                    <HugeiconsIcon icon={PaintBoardIcon} className="h-4 w-4" />
-                    <span className="sr-only">Customize Color</span>
-                </Button>
-            </SheetTrigger>
+            <SheetTrigger
+                render={
+                    <Button variant="ghost" size="icon" className="h-7 w-7">
+                        <HugeiconsIcon icon={PaintBoardIcon} className="h-4 w-4" />
+                        <span className="sr-only">Customize Color</span>
+                    </Button>
+                }
+            />
             <SheetContent>
                 <SheetHeader>
                     <SheetTitle>Customize Look</SheetTitle>
@@ -66,21 +68,23 @@ export function ColorSwitcher() {
                     {themeColors.map((theme) => (
                         <TooltipProvider key={theme.name}>
                             <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <button
-                                        onClick={() => setThemeColor(theme.name)}
-                                        className={cn(
-                                            "flex items-center justify-center rounded-md border-2 border-muted bg-popover p-1 hover:bg-accent hover:text-accent-foreground transition-all",
-                                            themeColor === theme.name && "border-primary"
-                                        )}
-                                    >
-                                        <div className={cn("h-6 w-6 rounded-full", theme.activeColor)} />
-                                        <span className="sr-only">{theme.label}</span>
-                                        {themeColor === theme.name && (
-                                            <HugeiconsIcon icon={CheckIcon} className="ml-2 h-4 w-4 text-primary" />
-                                        )}
-                                    </button>
-                                </TooltipTrigger>
+                                <TooltipTrigger
+                                    render={
+                                        <button
+                                            onClick={() => setThemeColor(theme.name)}
+                                            className={cn(
+                                                "flex items-center justify-center rounded-md border-2 border-muted bg-popover p-1 hover:bg-accent hover:text-accent-foreground transition-all",
+                                                themeColor === theme.name && "border-primary"
+                                            )}
+                                        >
+                                            <div className={cn("h-6 w-6 rounded-full", theme.activeColor)} />
+                                            <span className="sr-only">{theme.label}</span>
+                                            {themeColor === theme.name && (
+                                                <HugeiconsIcon icon={Tick02Icon} className="ml-2 h-4 w-4 text-primary" />
+                                            )}
+                                        </button>
+                                    }
+                                />
                                 <TooltipContent>
                                     {theme.label}
                                 </TooltipContent>
