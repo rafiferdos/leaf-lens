@@ -128,7 +128,7 @@ export default function HistoryPage() {
                 </div>
             </div>
 
-            <div className="pb-10">
+            <div className="pb-10 w-9/12 mx-auto">
                 <div className="flex flex-col gap-3">
                     {history.map((item) => (
                         <div
@@ -161,9 +161,9 @@ export default function HistoryPage() {
                                     )}>
                                         {item.result.class}
                                     </h3>
-                                    <Badge variant="outline" className={cn(
-                                        "bg-background/80 shrink-0",
-                                        item.result.confidence > 0.8 ? "text-green-600 border-green-200" : "text-amber-600 border-amber-200"
+                                    <Badge variant="default" className={cn(
+                                        "bg-primary/10 shrink-0 border-none",
+                                        item.result.confidence > 0.7 ? "text-green-600 border-green-200" : "text-amber-600 border-amber-200"
                                     )}>
                                         {(item.result.confidence * 100).toFixed(0)}%
                                     </Badge>
