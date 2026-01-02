@@ -4,6 +4,7 @@ import * as React from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { useTheme } from "next-themes"
+import { ColorSwitcher } from "@/components/color-switcher"
 import {
     Sidebar,
     SidebarContent,
@@ -101,11 +102,11 @@ export function AppSidebar() {
 
             <SidebarFooter>
                 <SidebarMenu>
-                    <SidebarMenuItem>
+                    <SidebarMenuItem className="flex items-center gap-2">
                         <DropdownMenu>
                             <DropdownMenuTrigger
                                 render={
-                                    <SidebarMenuButton tooltip="Select Theme">
+                                    <SidebarMenuButton tooltip="Select Theme" className="flex-1">
                                         <HugeiconsIcon icon={Sun01Icon} className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                                         <HugeiconsIcon icon={Moon01Icon} className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                                         <span>Toggle Theme</span>
@@ -127,6 +128,7 @@ export function AppSidebar() {
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
+                        <ColorSwitcher />
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarFooter>
