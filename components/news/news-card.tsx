@@ -41,7 +41,7 @@ export function NewsCard({ article }: NewsCardProps) {
                     </h3>
                 </CardHeader>
 
-                <CardContent className="p-4 pt-0 flex-grow">
+                <CardContent className="p-4 pt-0 grow">
                     <p className="text-sm text-muted-foreground line-clamp-3">
                         {article.description || "No description available for this article."}
                     </p>
