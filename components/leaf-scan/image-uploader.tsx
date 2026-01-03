@@ -2,16 +2,9 @@
 
 import * as React from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import { useScan } from "./scan-context"
 import { CameraCapture } from "./camera-capture"
-import { HugeiconsIcon } from "@hugeicons/react"
-import {
-    ImageIcon,
-    Camera01Icon,
-    Upload02Icon,
-    File01Icon
-} from "@hugeicons/core-free-icons"
+import { Image as ImageIcon, Camera, Upload, CloudUpload } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export function ImageUploader() {
@@ -30,7 +23,6 @@ export function ImageUploader() {
         e.preventDefault()
         setIsDragOver(false)
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            // Filter for images?
             const file = e.dataTransfer.files[0]
             if (file.type.startsWith("image/")) {
                 setImage(file)
@@ -51,31 +43,48 @@ export function ImageUploader() {
         <>
             <div
                 className={cn(
-                    "relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-zinc-200 bg-zinc-50 p-12 text-center transition-colors dark:border-zinc-800 dark:bg-zinc-950/50",
-                    isDragOver && "border-primary bg-primary/5 ring-1 ring-primary/20"
+                    "relative flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-border/60 bg-card/30 backdrop-blur-sm p-12 text-center transition-all duration-500 ease-out group dark:bg-card/10 overflow-hidden",
+                    isDragOver
+                        ? "border-primary bg-primary/5 ring-4 ring-primary/10 scale-[1.02]"
+                        : "hover:border-primary/50 hover:bg-card/50"
                 )}
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
             >
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100 shadow-sm dark:bg-zinc-900">
-                    <HugeiconsIcon icon={ImageIcon} className="h-8 w-8" />
+                {/* Decorative background gradients */}
+                <div className="absolute inset-0 bg-linear-to-tr from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+                <div className={cn(
+                    "mb-6 flex h-24 w-24 items-center justify-center rounded-3xl bg-background/80 shadow-xl ring-1 ring-border/50 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3",
+                    isDragOver && "animate-bounce"
+                )}>
+                    <CloudUpload className="h-10 w-10 text-primary" />
                 </div>
 
-                <h3 className="mb-2 text-3xl text-primary font-semibold tracking-tight">
+                <h3 className="mb-3 text-3xl font-heading font-semibold tracking-tight text-foreground">
                     Upload Plant Photo
                 </h3>
-                <p className="mb-8 max-w-sm text-sm text-zinc-500">
-                    Drag and drop your image here, or choose an option below to get started.
+                <p className="mb-10 max-w-md text-base text-muted-foreground leading-relaxed">
+                    Drag and drop your image here to analyze it instantly, or choose a method below.
                 </p>
 
-                <div className="flex flex-col gap-3 w-full max-w-xs">
-                    <Button onClick={() => fileInputRef.current?.click()} className="w-full gap-2" size="lg">
-                        <HugeiconsIcon icon={Upload02Icon} />
-                        Choose from Device
+                <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
+                    <Button
+                        onClick={() => fileInputRef.current?.click()}
+                        className="flex-1 h-14 rounded-2xl text-base shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all duration-300"
+                        size="lg"
+                    >
+                        <Upload className="mr-2 h-5 w-5" />
+                        Choose File
                     </Button>
-                    <Button onClick={() => setIsCameraOpen(true)} variant="outline" className="w-full gap-2 text-primary" size="lg">
-                        <HugeiconsIcon icon={Camera01Icon} />
+                    <Button
+                        onClick={() => setIsCameraOpen(true)}
+                        variant="secondary"
+                        className="flex-1 h-14 rounded-2xl text-base border-border/50 backdrop-blur-sm bg-background/50 hover:bg-background/80 shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+                        size="lg"
+                    >
+                        <Camera className="mr-2 h-5 w-5 text-primary" />
                         Take Photo
                     </Button>
                 </div>
