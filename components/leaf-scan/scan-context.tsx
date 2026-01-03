@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { config } from "@/lib/config"
 
 export interface Prediction {
     class: string
@@ -55,8 +56,7 @@ export function ScanProvider({ children }: { children: React.ReactNode }) {
             const formData = new FormData()
             formData.append("file", image)
 
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
-            const response = await fetch(`${apiUrl}/predict`, {
+            const response = await fetch(`${config.apiUrl}/predict`, {
                 method: "POST",
                 body: formData,
             })

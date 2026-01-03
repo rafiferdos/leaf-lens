@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { config } from '@/lib/config';
 
-const NEWSDATA_API_KEY = 'pub_0b8bbc25434548d8a777ec2b7bf60273';
-const NEWSDATA_API_URL = 'https://newsdata.io/api/1/latest';
+const NEWSDATA_API_KEY = config.newsApiKey;
+const NEWSDATA_API_URL = config.newsApiUrl;
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
