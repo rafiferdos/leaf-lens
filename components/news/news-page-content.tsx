@@ -42,7 +42,7 @@ export function NewsPageContent() {
         <div className="max-w-7xl mx-auto w-full space-y-6">
             <div className="flex flex-col gap-2">
                 <h1 className="text-3xl font-heading bg-linear-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
-                    Eggplant News
+                    Articles
                 </h1>
                 <p className="text-muted-foreground">
                     Latest updates on food, health, and lifestyle from around the world.

@@ -7,7 +7,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { NewsCategory, NewsCountry, NewsLanguage } from "@/lib/news-service";
-import { RefreshCcw } from "lucide-react";
+import { RefreshCcw, Layers, Globe, Languages } from "lucide-react";
 
 interface NewsFiltersProps {
     category: NewsCategory;
@@ -50,11 +50,14 @@ export function NewsFilters({
     isLoading
 }: NewsFiltersProps) {
     return (
-        <div className="flex flex-col sm:flex-row gap-4 mb-8 items-center bg-card p-4 rounded-xl border shadow-sm">
+        <div className="flex flex-col sm:flex-row gap-4 mb-8 items-center bg-card/50 backdrop-blur-sm p-4 rounded-xl border shadow-sm">
             <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
                 <Select value={category} onValueChange={(v) => onCategoryChange(v as NewsCategory)}>
-                    <SelectTrigger>
-                        <SelectValue />
+                    <SelectTrigger className="bg-background">
+                        <div className="flex items-center gap-2">
+                            <Layers className="h-4 w-4 text-muted-foreground" />
+                            <SelectValue />
+                        </div>
                     </SelectTrigger>
                     <SelectContent>
                         {CATEGORIES.map(cat => (
@@ -64,8 +67,11 @@ export function NewsFilters({
                 </Select>
 
                 <Select value={language} onValueChange={(v) => onLanguageChange(v as NewsLanguage)}>
-                    <SelectTrigger>
-                        <SelectValue />
+                    <SelectTrigger className="bg-background">
+                        <div className="flex items-center gap-2">
+                            <Languages className="h-4 w-4 text-muted-foreground" />
+                            <SelectValue />
+                        </div>
                     </SelectTrigger>
                     <SelectContent>
                         {LANGUAGES.map(lang => (
@@ -77,8 +83,11 @@ export function NewsFilters({
                 </Select>
 
                 <Select value={country} onValueChange={(v) => onCountryChange(v as NewsCountry)}>
-                    <SelectTrigger>
-                        <SelectValue />
+                    <SelectTrigger className="bg-background">
+                        <div className="flex items-center gap-2">
+                            <Globe className="h-4 w-4 text-muted-foreground" />
+                            <SelectValue />
+                        </div>
                     </SelectTrigger>
                     <SelectContent>
                         {COUNTRIES.map(c => (
