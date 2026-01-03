@@ -1,18 +1,8 @@
-"use client"
-
 import * as React from "react"
 import { useTheme } from "next-themes"
 import { useThemeColor, ThemeColor } from "@/components/theme-color-provider"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-    TooltipProvider
-} from "@/components/ui/tooltip"
-import { Tick02Icon, PaintBoardIcon, Sun01Icon, Moon01Icon, ComputerIcon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { Check, Palette, Sun, Moon, Monitor } from "lucide-react"
 import {
     Sheet,
     SheetContent,
@@ -57,7 +47,7 @@ export function ColorSwitcher() {
                 render={
                     <button className="flex w-full items-center gap-3 rounded-xl border border-dashed border-sidebar-border bg-sidebar-background/50 p-2 hover:bg-sidebar-accent hover:border-sidebar-accent hover:text-sidebar-accent-foreground transition-all group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:border-none group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:bg-transparent outline-none focus-visible:ring-2 focus-visible:ring-ring">
                         <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:rounded-md">
-                            <HugeiconsIcon icon={PaintBoardIcon} className="size-4" />
+                            <Palette className="size-4" />
                         </div>
                         <div className="flex flex-1 flex-col items-start gap-0.5 text-left group-data-[collapsible=icon]:hidden">
                             <span className="text-sm font-medium leading-none">Appearance</span>
@@ -92,7 +82,7 @@ export function ColorSwitcher() {
                                             : "border-border bg-transparent text-muted-foreground"
                                     )}
                                 >
-                                    <HugeiconsIcon icon={Sun01Icon} className="size-6" />
+                                    <Sun className="size-6" />
                                     <span>Light</span>
                                 </button>
                                 <button
@@ -104,7 +94,7 @@ export function ColorSwitcher() {
                                             : "border-border bg-transparent text-muted-foreground"
                                     )}
                                 >
-                                    <HugeiconsIcon icon={Moon01Icon} className="size-6" />
+                                    <Moon className="size-6" />
                                     <span>Dark</span>
                                 </button>
                                 <button
@@ -116,7 +106,7 @@ export function ColorSwitcher() {
                                             : "border-border bg-transparent text-muted-foreground"
                                     )}
                                 >
-                                    <HugeiconsIcon icon={ComputerIcon} className="size-6" />
+                                    <Monitor className="size-6" />
                                     <span>System</span>
                                 </button>
                             </div>
@@ -152,7 +142,7 @@ export function ColorSwitcher() {
                                             <span className="truncate">{theme.label}</span>
                                             {isActive && (
                                                 <div className="absolute right-2 top-1/2 -translate-y-1/2 text-primary">
-                                                    <HugeiconsIcon icon={Tick02Icon} className="size-3" />
+                                                    <Check className="size-3" />
                                                 </div>
                                             )}
                                         </button>
