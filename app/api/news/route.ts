@@ -10,15 +10,26 @@ export async function GET(request: NextRequest) {
     const country = searchParams.get('country') || 'in';
     const page = searchParams.get('page');
 
-    let apiUrl = `${NEWSDATA_API_URL}?apikey=${NEWSDATA_API_KEY}&country=${country}&language=${language}&category=${category}&image=1`;
+    const externalUrl = new URL(NEWSDATA_API_URL);
+    externalUrl.searchParams.append('apikey', NEWSDATA_API_KEY);
+    externalUrl.searchParams.append('country', country);
+    externalUrl.searchParams.append('language', language);
+    externalUrl.searchParams.append('category', category);
+    externalUrl.searchParams.append('image', '1');
 
     if (page) {
-        apiUrl += `&page=${page}`;
+        externalUrl.searchParams.append('page', page);
     }
 
     try {
-        const response = await fetch(apiUrl);
+        const response = await fetch(externalUrl.toString());
         const data = await response.json();
+
+        if (!response.ok) {
+            console.error('NewsData API Error:', data);
+            return NextResponse.json(data, { status: response.status });
+        }
+
         return NextResponse.json(data);
     } catch (error) {
         console.error('News fetch error:', error);
