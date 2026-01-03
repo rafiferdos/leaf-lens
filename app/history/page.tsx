@@ -1,38 +1,23 @@
 "use client"
 
 import * as React from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { HugeiconsIcon } from "@hugeicons/react"
-import { Time01Icon, Delete02Icon, Calendar03Icon } from "@hugeicons/core-free-icons"
-import { getHistory, clearHistory, HistoryItem } from "@/lib/history"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-import { cn } from "@/lib/utils"
+import { getHistory, clearHistory, removeFromHistory, HistoryItem } from "@/lib/history"
+import { HistoryToolbar } from "@/components/history/history-toolbar"
+import { HistoryGrid } from "@/components/history/history-grid"
+import { HistoryList } from "@/components/history/history-list"
+import { EmptyHistoryState } from "@/components/history/empty-state"
 
-type ViewOption = "default" | "compact" | "comfort"
+// Checking imports: toast might not be installed. I'll avoid toast for now to avoid errors, or check package.json.
+// Step 722 viewed package.json... it has "sonner": "^1.5.0"? No, I didn't see it in the summary.
+// I'll stick to standard React state updates.
+
+// Re-viewing package.json from step 722... I didn't see sonner. I'll list package.json to be safe if I wanted to add toasts, but for now I'll just rely on UI updates.
 
 export default function HistoryPage() {
     const [history, setHistory] = React.useState<HistoryItem[]>([])
     const [isLoading, setIsLoading] = React.useState(true)
-    const [view, setView] = React.useState<ViewOption>("default")
+    const [view, setView] = React.useState<"grid" | "list">("grid")
+    const [searchQuery, setSearchQuery] = React.useState("")
 
     const loadHistory = React.useCallback(() => {
         const data = getHistory()
@@ -44,172 +29,85 @@ export default function HistoryPage() {
         loadHistory()
     }, [loadHistory])
 
-    if (isLoading) {
-        return (
-            <div className="flex h-[50vh] items-center justify-center">
-                <div className="text-muted-foreground animate-pulse">Loading history...</div>
-            </div>
-        )
+    const handleClearHistory = () => {
+        clearHistory()
+        setHistory([])
     }
 
-    if (history.length === 0) {
+    const handleDeleteItem = (id: string) => {
+        removeFromHistory(id)
+        setHistory(prev => prev.filter(item => item.id !== id))
+    }
+
+    const filteredHistory = React.useMemo(() => {
+        if (!searchQuery) return history;
+        const lowerQ = searchQuery.toLowerCase();
+        return history.filter(item =>
+            item.result.class.toLowerCase().includes(lowerQ) ||
+            new Date(item.timestamp).toLocaleDateString().includes(lowerQ)
+        );
+    }, [history, searchQuery]);
+
+    if (isLoading) {
         return (
-            <div className="flex flex-col items-center justify-center h-[60vh] text-center space-y-4 animate-in fade-in zoom-in duration-500">
-                <div className="h-16 w-16 rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
-                    <HugeiconsIcon icon={Time01Icon} className="h-8 w-8 text-zinc-400" />
-                </div>
-                <div className="space-y-1">
-                    <h1 className="text-2xl font-bold font-heading text-zinc-900 dark:text-zinc-100">No scans yet</h1>
-                    <p className="text-zinc-500 max-w-sm">
-                        Calculated results from your leaf scans will appear here.
-                    </p>
+            <div className="container mx-auto max-w-7xl p-6 min-h-screen pt-24 space-y-8">
+                <div className="h-12 w-48 bg-muted animate-pulse rounded-lg" />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {[1, 2, 3].map(i => (
+                        <div key={i} className="h-64 bg-muted animate-pulse rounded-xl" />
+                    ))}
                 </div>
             </div>
         )
     }
 
     return (
-        <div className="space-y-6 animate-in fade-in duration-700 h-full">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h1 className="text-3xl font-bold font-heading">Scan History</h1>
-                    <p className="text-muted-foreground mt-1">Found {history.length} past analyses.</p>
+        <div className="min-h-screen bg-background/50">
+            <div className="container mx-auto max-w-7xl p-6 pt-10 space-y-8">
+                <div className="flex flex-col gap-2">
+                    <h1 className="text-4xl font-heading font-bold bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                        Scan History
+                    </h1>
+                    <p className="text-muted-foreground text-lg">
+                        Manage and review your past plant diagnoses.
+                    </p>
                 </div>
-                <div className="flex items-center gap-2">
-                    <Select value={view} onValueChange={(v) => setView(v as ViewOption)}>
-                        <SelectTrigger className="w-[140px]">
-                            <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="default">
-                                <span className="flex items-center gap-2">
-                                    Default
-                                </span>
-                            </SelectItem>
-                            <SelectItem value="compact">
-                                <span className="flex items-center gap-2">
-                                    Compact
-                                </span>
-                            </SelectItem>
-                            <SelectItem value="comfort">
-                                <span className="flex items-center gap-2">
-                                    Comfort
-                                </span>
-                            </SelectItem>
-                        </SelectContent>
-                    </Select>
 
-                    <AlertDialog>
-                        <AlertDialogTrigger
-                            render={
-                                <Button variant="outline" size="icon" className="text-destructive hover:text-destructive shrink-0">
-                                    <HugeiconsIcon icon={Delete02Icon} className="size-4" />
-                                </Button>
-                            }
-                        />
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    This action cannot be undone. This will permanently delete your scan history from this device.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={() => {
-                                    clearHistory()
-                                    loadHistory()
-                                }} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-                                    Delete History
-                                </AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
-                </div>
-            </div>
+                <div className="space-y-6">
+                    <HistoryToolbar
+                        searchQuery={searchQuery}
+                        onSearchChange={setSearchQuery}
+                        view={view}
+                        onViewChange={setView}
+                        onClearHistory={handleClearHistory}
+                        hasHistory={history.length > 0}
+                    />
 
-            <div className="pb-10 w-9/12 mx-auto">
-                <div className="flex flex-col gap-3">
-                    {history.map((item) => (
-                        <div
-                            key={item.id}
-                            className={cn(
-                                "group relative flex items-center gap-4 rounded-xl border border-border/50 bg-background/50 p-3 shadow-sm transition-all hover:bg-accent/5 hover:border-accent/20 hover:shadow-md",
-                                view === "compact" && "p-2 gap-3",
-                                view === "comfort" && "p-5 gap-6 flex-col sm:flex-row"
-                            )}
-                        >
-                            <div className={cn(
-                                "relative shrink-0 overflow-hidden rounded-lg",
-                                view === "default" && "h-20 w-20",
-                                view === "compact" && "h-12 w-12 rounded-md",
-                                view === "comfort" && "h-48 w-full sm:w-48 sm:h-32 rounded-xl"
-                            )}>
-                                <img
-                                    src={item.imageBase64}
-                                    alt={item.result.class}
-                                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                />
-                            </div>
-
-                            <div className="flex min-w-0 flex-1 flex-col gap-1">
-                                <div className="flex items-start justify-between gap-2">
-                                    <h3 className={cn(
-                                        "font-bold font-heading line-clamp-1",
-                                        view === "compact" ? "text-base" : "text-lg",
-                                        view === "comfort" && "text-xl"
-                                    )}>
-                                        {item.result.class}
-                                    </h3>
-                                    <Badge variant="default" className={cn(
-                                        "bg-primary/10 shrink-0 border-none",
-                                        item.result.confidence > 0.7 ? "text-green-600 border-green-200" : "text-amber-600 border-amber-200"
-                                    )}>
-                                        {(item.result.confidence * 100).toFixed(0)}%
-                                    </Badge>
-                                </div>
-
-                                {item.result.all_predictions && item.result.all_predictions.length > 0 && view !== "compact" && (
-                                    <div className="mt-2 space-y-2">
-                                        {item.result.all_predictions.slice(0, 3).map((pred) => (
-                                            <div key={pred.class} className="flex items-center gap-2 text-xs">
-                                                <span className="w-24 truncate font-medium text-muted-foreground">{pred.class}</span>
-                                                <div className="flex-1 h-1.5 bg-secondary rounded-full overflow-hidden">
-                                                    <div
-                                                        className="h-full bg-primary/70 rounded-full"
-                                                        style={{ width: `${pred.confidence * 100}%` }}
-                                                    />
-                                                </div>
-                                                <span className="w-8 text-right text-muted-foreground">{(pred.confidence * 100).toFixed(0)}%</span>
-                                            </div>
-                                        ))}
+                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        {filteredHistory.length > 0 ? (
+                            view === "grid" ? (
+                                <HistoryGrid items={filteredHistory} onDelete={handleDeleteItem} />
+                            ) : (
+                                <HistoryList items={filteredHistory} onDelete={handleDeleteItem} />
+                            )
+                        ) : (
+                            <div className="pt-10">
+                                {searchQuery ? (
+                                    <div className="text-center py-20 text-muted-foreground bg-muted/20 rounded-3xl border border-dashed border-border/50">
+                                        <p className="text-lg">No results found for "{searchQuery}"</p>
+                                        <button
+                                            onClick={() => setSearchQuery("")}
+                                            className="text-primary hover:underline mt-2 text-sm"
+                                        >
+                                            Clear search
+                                        </button>
                                     </div>
+                                ) : (
+                                    <EmptyHistoryState />
                                 )}
-
-                                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-muted-foreground mt-1">
-                                    <div className="flex items-center gap-1.5 text-xs">
-                                        <HugeiconsIcon icon={Calendar03Icon} className="size-3.5" />
-                                        <span>
-                                            {new Date(item.timestamp).toLocaleDateString(undefined, {
-                                                month: 'short',
-                                                day: 'numeric',
-                                                year: view === "comfort" ? 'numeric' : undefined
-                                            })}
-                                        </span>
-                                    </div>
-                                    <div className="flex items-center gap-1.5 text-xs">
-                                        <HugeiconsIcon icon={Time01Icon} className="size-3.5" />
-                                        <span>
-                                            {new Date(item.timestamp).toLocaleTimeString(undefined, {
-                                                hour: 'numeric',
-                                                minute: '2-digit'
-                                            })}
-                                        </span>
-                                    </div>
-                                </div>
                             </div>
-                        </div>
-                    ))}
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

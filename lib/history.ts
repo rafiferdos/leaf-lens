@@ -53,3 +53,9 @@ export async function addToHistory(result: ScanResult, imageFile: File) {
 export function clearHistory() {
     localStorage.removeItem(HISTORY_KEY)
 }
+
+export function removeFromHistory(id: string) {
+    const history = getHistory()
+    const newHistory = history.filter(item => item.id !== id)
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(newHistory))
+}
