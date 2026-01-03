@@ -33,7 +33,8 @@ import {
     Sun01Icon,
     Moon01Icon,
     ComputerIcon,
-    Leaf01Icon
+    Leaf01Icon,
+    News01Icon
 } from "@hugeicons/core-free-icons"
 
 export function AppSidebar() {
@@ -84,6 +85,19 @@ export function AppSidebar() {
                             >
                                 <HugeiconsIcon icon={Time01Icon} />
                                 <span>Scan History</span>
+                            </Link>
+                        </SidebarMenuItem>
+
+                        <SidebarMenuItem>
+                            <Link
+                                href="/news"
+                                data-active={pathname === "/news"}
+                                className={sidebarMenuButtonVariants({
+                                    variant: "default"
+                                })}
+                            >
+                                <HugeiconsIcon icon={News01Icon} />
+                                <span>News</span>
                             </Link>
                         </SidebarMenuItem>
 
